@@ -1,0 +1,26 @@
+# Ignore Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore Conda environment directories
+/envs/
+/miniconda3/envs/
+/anaconda3/envs/
+
+# Ignore data directories
+data/raw/
+data/processed/
+
+# Ignore model directories
+models/
+
+# Ignore other temporary files
+*.tmp
+*.log
+*.bak
+
+# Ignore reports
