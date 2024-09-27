@@ -1,24 +1,41 @@
- # Project Title
- 
- **Aircraft Detection Using Deep Learning**
- 
- ## Overview
- 
- This project focuses on building a deep learning model for aircraft detection. The model utilizes various deep learning and data handling libraries to process images, train a neural etwork, and evaluate its performance. The model structure is based on the EfficientNetB3 architecture and employs several callbacks for optimized training.
- 
- ## Table of Contents
- 
- 1. [Project Structure](#project-structure)
- 2. [Requirements](#requirements)
- 3. [Data Preparation](#data-preparation)
- 4. [Model Architecture](#model-architecture)
- 5. [Training and Evaluation](#training-and-evaluation)
- 6. [Visualization](#visualization)
- 7. [Model Saving and Loading](#model-saving-and-loading)
- 8. [Results](#results)
- 9. [Future Work](#future-work)
- 10. [References](#references)
- 
+# Aircraft Detection Using Deep Learning
+
+## Overview
+
+This project focuses on detecting and classifying military aircraft using deep learning techniques. We employ convolutional neural networks (CNNs) and transfer learning to build models capable of recognizing different types of military aircraft from images with high accuracy.
+
+We explore two advanced deep learning architectures:
+
+- **EfficientNetB3**
+- **ResNet50**
+
+Both models are trained and evaluated to compare their performance on this classification task.
+
+## Dataset
+
+The dataset used in this project is sourced from Kaggle:
+
+[Military Aircraft Detection Dataset](https://www.kaggle.com/datasets/a2015003713/militaryaircraftdetectiondataset)
+
+This dataset contains images of various military aircraft types, organized into class-specific directories.
+
+## Description
+
+The code in this project performs the following steps:
+
+1. **Data Loading and Preprocessing**: The script reads image files and their corresponding labels from the dataset directory. It preprocesses the images and splits the data into training, validation, and test sets.
+
+2. **Model Building**: Two deep learning models are constructed using the EfficientNetB3 and ResNet50 architectures. Transfer learning is employed by initializing the models with pre-trained weights from ImageNet and fine-tuning them for our specific task.
+
+3. **Training**: The models are trained using the prepared data. Custom callback functions are implemented to adjust learning rates dynamically and to perform early stopping if the models stop improving.
+
+4. **Evaluation**: After training, the models are evaluated on the test set. Performance metrics such as accuracy, precision, recall, and F1-score are calculated. Confusion matrices are generated to visualize the performance across different classes.
+
+5. **Results Visualization**: The script displays sample predictions alongside the actual labels to provide a visual sense of how well the models are performing.
+
+6. **Model Saving**: The trained models and their class indices are saved for future use or deployment.
+
+
  ## Project Structure
  
  ```
@@ -30,7 +47,8 @@
  ├── src
  │   └── main.py
  ├── models
- │   └── model.h5
+ │   └── efficientnet_model.h5
+ │   └── resnet50_model.h5
  ├── README.md
  └── requirements.txt
  ```
@@ -52,142 +70,4 @@
  - Matplotlib
  - Seaborn
  - Scikit-learn
- 
- ## Data Preparation
- 
- ### 1. Define Paths and Labels
- 
- The function `define_paths(dir)` generates file paths and labels for the given directory structure.
- 
- ```python
- def define_paths(dir):
-     # Your code here
- ```
- 
- ### 2. Dataframe Creation
- 
- The function `define_df(files, classes)` concatenates file paths and labels into a Pandas DataFrame.
- 
- ```python
- def define_df(files, classes):
-     # Your code here
- ```
- 
- ### 3. Data Splitting
- 
- The function `split_data(tr_dir, val_dir=None, ts_dir=None)` handles various formats of input data and splits them into train, validation, and test sets.
- 
- ```python
- def split_data(tr_dir, val_dir=None, ts_dir=None):
-     # Your code here
- ```
- 
- ## Model Architecture
- 
- The model is built using the EfficientNetB3 architecture as a base, followed by additional dense layers, dropout, and batch normalization.
- 
- ### Model Summary
- 
- ```python
- model = Sequential([
-     base_model,
-     BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001),
-     Dense(256, kernel_regularizer=regularizers.l2(0.016), 
-           activity_regularizer=regularizers.l1(0.006), 
-           bias_regularizer=regularizers.l1(0.006), 
-           activation='relu'),
-     Dropout(rate=0.45, seed=123),
-     Dense(class_count, activation='softmax')
- ])
- 
- model.compile(Adamax(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])
- ```
- 
- ## Training and Evaluation
- 
- The model is trained using the following parameters:
- 
- - **Batch Size**: 40
- - **Epochs**: 40
- - **Patience**: 1 (Number of epochs to wait before reducing learning rate if no improvement)
- - **Stop Patience**: 3 (Number of times learning rate can be reduced before stopping training)
- - **Learning Rate Factor**: 0.5 (Factor by which to reduce learning rate)
- - **Threshold**: 0.9 (Accuracy threshold for learning rate adjustments)
- 
- ### Training
- 
- ```python
- history = model.fit(x=train_gen, 
-                     epochs=epochs, 
-                     verbose=0, 
-                     callbacks=callbacks, 
-                     validation_data=valid_gen, 
-                     validation_steps=None, 
-                     shuffle=False)
- ```
- 
- ### Evaluation
- 
- ```python
- train_score = model.evaluate(train_gen, steps=test_steps, verbose=1)
- valid_score = model.evaluate(valid_gen, steps=test_steps, verbose=1)
- test_score = model.evaluate(test_gen, steps=test_steps, verbose=1)
- ```
- 
- ## Visualization
- 
- ### Display Sample Images
- 
- ```python
- def show_images(gen):
-     # Function to display a sample of images from the data generator
- ```
- 
- ### Plot Training History
- 
- ```python
- def plot_training(hist):
-     # Function to plot training and validation accuracy and loss
- ```
- 
- ### Confusion Matrix
- 
- ```python
- def plot_confusion_matrix(cm, classes, normalize=False, title='Confusion Matrix', cmap=plt.cm.Blues):
-     # Function to plot a confusion matrix
- ```
- 
- ## Model Saving and Loading
- 
- ### Save Model
- 
- ```python
- model.save('model.h5', save_traces=False)
- ```
- 
- ### Save Model Weights
- 
- ```python
- model.save_weights('weights.h5')
- ```
- 
- ## Results
- 
- The model achieved the following accuracy:
- 
- - **Train Accuracy**: `X%`
- - **Validation Accuracy**: `X%`
- - **Test Accuracy**: `X%`
- 
- ## Future Work
- 
- 1. **Data Augmentation**: Increase the variety of training data using advanced augmentation techniques.
- 2. **Hyperparameter Tuning**: Explore different architectures and hyperparameters.
- 3. **Real-Time Detection**: Implement the model for real-time aircraft detection in video streams.
- 
- ## References
- 
- 1. TensorFlow Documentation
- 2. Scikit-learn Documentation
- 3. EfficientNet Paper
 
