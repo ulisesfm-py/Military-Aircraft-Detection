@@ -1,46 +1,14 @@
- # Project Title
- 
- **Aircraft Detection Using Deep Learning**
- 
+ # Aircraft Detection using Deep Learning
  ## Overview
  
- This project focuses on building a deep learning model for aircraft detection. The model utilizes various deep learning and data handling libraries to process images, train a neural etwork, and evaluate its performance. The model structure is based on the EfficientNetB3 architecture and employs several callbacks for optimized training.
- 
- ## Table of Contents
- 
- 1. [Project Structure](#project-structure)
- 2. [Requirements](#requirements)
- 3. [Data Preparation](#data-preparation)
- 4. [Model Architecture](#model-architecture)
- 5. [Training and Evaluation](#training-and-evaluation)
- 6. [Visualization](#visualization)
- 7. [Model Saving and Loading](#model-saving-and-loading)
- 8. [Results](#results)
- 9. [Future Work](#future-work)
- 10. [References](#references)
- 
- ## Project Structure
- 
- ```
- ├── data
- │   ├── raw
- │   │   └── crop
- │   ├── processed
- │   └── results
- ├── src
- │   └── main.py
- ├── models
- │   └── model.h5
- ├── README.md
- └── requirements.txt
- ```
+This project focuses on building a deep learning model for aircraft detection. The model utilizes various deep learning and data handling libraries to process images, train a neural network, and evaluate its performance. The model structure is based on the EfficientNetB3 architecture and employs several callbacks for optimized training.
  
  ## Requirements
  
  To install all the dependencies required for this project, run:
  
  ```bash
- pip install -r requirements.txt
+ conda create -f environment.yml
  ```
  
  ### Required Libraries
@@ -170,20 +138,6 @@
  ```python
  model.save_weights('weights.h5')
  ```
- 
- ## Results
- 
- The model achieved the following accuracy:
- 
- - **Train Accuracy**: `X%`
- - **Validation Accuracy**: `X%`
- - **Test Accuracy**: `X%`
- 
- ## Future Work
- 
- 1. **Data Augmentation**: Increase the variety of training data using advanced augmentation techniques.
- 2. **Hyperparameter Tuning**: Explore different architectures and hyperparameters.
- 3. **Real-Time Detection**: Implement the model for real-time aircraft detection in video streams.
  
  ## References
  
